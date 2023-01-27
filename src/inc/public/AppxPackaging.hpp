@@ -1199,6 +1199,8 @@ interface IMsixElementEnumerator;
 interface IMsixFactoryOverrides;
 interface IMsixStreamFactory;   
 interface IMsixApplicabilityLanguagesEnumerator;
+interface IMsixAttributesEnumerator;
+interface IMsixAttributesEnumeratorUtf8;
 
 MSIX_INTERFACE(IMsixDocumentElement,0xe8900e0e,0x1dfd,0x4728,0x83,0x52,0xaa,0xda,0xeb,0xbf,0x00,0x65);
 MSIX_INTERFACE(IMsixElement,0x5b6786ff,0x6145,0x4f0e,0xb8,0xc9,0x8e,0x03,0xaa,0xcb,0x60,0xd0);
@@ -1206,6 +1208,8 @@ MSIX_INTERFACE(IMsixElementEnumerator,0x7e7ea105,0xa4f9,0x4c12,0x9e,0xfa,0x98,0x
 MSIX_INTERFACE(IMsixFactoryOverrides,0x0acedbdb,0x57cd,0x4aca,0x8c,0xee,0x33,0xfa,0x52,0x39,0x43,0x16);
 MSIX_INTERFACE(IMsixStreamFactory,0xc74f4821,0x3b82,0x4ad5,0x98,0xea,0x3d,0x52,0x68,0x1a,0xff,0x56);
 MSIX_INTERFACE(IMsixApplicabilityLanguagesEnumerator,0xbfc4655a,0xbe7a,0x456a,0xbc,0x4e,0x2a,0xf9,0x48,0x1e,0x84,0x32);
+MSIX_INTERFACE(IMsixAttributesEnumerator, 0x1630a94d, 0x948b, 0x4e42, 0x82, 0x1, 0xf6, 0x28, 0x44, 0x53, 0x16, 0x5d);
+MSIX_INTERFACE(IMsixAttributesEnumeratorUtf8, 0xe09726d0, 0x860c, 0x4ead, 0xb9, 0x18, 0x1, 0x58, 0xfb, 0xab, 0x61, 0x7b);
 
 extern "C"{
 
@@ -1249,6 +1253,9 @@ extern "C"{
         virtual HRESULT STDMETHODCALLTYPE GetElementsUtf8(
             /* [in] */ LPCSTR xpath,
             /* [retval][out] */ IMsixElementEnumerator** elements) noexcept= 0;
+
+        virtual HRESULT STDMETHODCALLTYPE GetAttributes(
+            /* [retval][out] */ IMsixAttributesEnumerator** attributes) noexcept = 0;
     };
 #endif  /* __IMsixElement_INTERFACE_DEFINED__ */
 
@@ -1327,6 +1334,41 @@ extern "C"{
             /* [retval][out] */  BOOL *hasNext) noexcept = 0;
     };
 #endif  /* __IMsixApplicabilityLanguagesEnumerator_INTERFACE_DEFINED__ */
+
+#ifndef __IMsixAttributesEnumerator_INTERFACE_DEFINED__
+#define __IMsixAttributesEnumerator_INTERFACE_DEFINED__
+
+    // {1630A94D-948B-4E42-8201-F6284453165D}
+    interface IMsixAttributesEnumerator : public IUnknown
+    {
+        virtual HRESULT STDMETHODCALLTYPE GetCurrent(
+            /* [retval][string][out] */ LPWSTR* attribute) noexcept = 0;
+
+        virtual HRESULT STDMETHODCALLTYPE GetHasCurrent(
+            /* [retval][out] */  BOOL* hasCurrent) noexcept = 0;
+
+        virtual HRESULT STDMETHODCALLTYPE MoveNext(
+            /* [retval][out] */  BOOL* hasNext) noexcept = 0;
+    };
+#endif  /* __IMsixAttributesEnumerator_INTERFACE_DEFINED__ */
+
+#ifndef __IMsixAttributesEnumeratorUtf8_INTERFACE_DEFINED__
+#define __IMsixAttributesEnumeratorUtf8_INTERFACE_DEFINED__
+
+    // {E09726D0-860C-4EAD-B918-0158FBAB617B}
+    interface IMsixAttributesEnumeratorUtf8 : public IUnknown
+    {
+    public:
+        virtual HRESULT STDMETHODCALLTYPE GetCurrent(
+            /* [retval][string][out] */ LPSTR* attribute) noexcept = 0;
+
+        virtual HRESULT STDMETHODCALLTYPE GetHasCurrent(
+            /* [retval][out] */  BOOL* hasCurrent) noexcept = 0;
+
+        virtual HRESULT STDMETHODCALLTYPE MoveNext(
+            /* [retval][out] */  BOOL* hasNext) noexcept = 0;
+    };
+#endif /* __IAppxManifestResourcesEnumeratorUtf8_INTERFACE_DEFINED__ */
 
 } // extern "C"
 
@@ -1861,6 +1903,12 @@ MSIX_API HRESULT STDMETHODCALLTYPE CreateStreamOnFileUTF16(
     bool forRead,
     IStream** stream) noexcept;
 
+MSIX_API HRESULT STDMETHODCALLTYPE CoCreateXmlFactory(
+    COTASKMEMALLOC* memalloc,
+    COTASKMEMFREE* memfree,
+    char* utf8XmlFilePath,
+    IMsixElement** xmlFactory) noexcept;
+	
 } // extern "C++"
 
 #endif //__appxpackaging_hpp__

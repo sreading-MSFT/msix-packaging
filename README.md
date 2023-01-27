@@ -225,7 +225,7 @@ msixtest uses Catch2 as testing framework. msixtest is either an executable or a
 First build the project, then:
 
 ### Testing for non-mobile devices:
-Go to the build directory and run msixtes\msixtest.exe. You can run an specific test by running msixtest [test name]. By default, the test will only output the failling tests, use -s to output successfull tests.
+Go to the build directory and run msixtest\msixtest.exe. You can run an specific test by running msixtest [test name]. By default, the test will only output the failling tests, use -s to output successfull tests.
 
 ### Testing on mobile devices:
 #### iOS

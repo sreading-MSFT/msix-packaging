@@ -94,7 +94,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>false</ConformanceMode>
-      <AdditionalIncludeDirectories>..\msixmgrLib\inc;..\..\.vs\src\msix;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\msixmgrLib\inc;..\..\.vs\src\msix;.\include\rapidjson;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
       <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
@@ -104,8 +104,8 @@
       <AdditionalLibraryDirectories>..\x86\Debug;..\..\.vs\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <UACExecutionLevel>AsInvoker</UACExecutionLevel>
       <AdditionalOptions>comctl32.lib %(AdditionalOptions)</AdditionalOptions>
-      <AdditionalDependencies>msixmgrlib.lib;msix.lib;msi.lib;comctl32.lib;uxtheme.lib;gdiplus.lib;version.lib;taskschd.lib;windowsapp_downlevel.lib;windowsapp.lib;urlmon.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <DelayLoadDLLs>api-ms-win-core-winrt-string-l1-1-0.dll;api-ms-win-core-winrt-l1-1-0.dll;api-ms-win-core-winrt-error-l1-1-0.dll;api-ms-win-core-winrt-error-l1-1-1.dll</DelayLoadDLLs>
+      <AdditionalDependencies>msixmgrlib.lib;msix.lib;msi.lib;comctl32.lib;uxtheme.lib;gdiplus.lib;version.lib;taskschd.lib;windowsapp_downlevel.lib;windowsapp.lib;urlmon.lib;Mrmsupport.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <DelayLoadDLLs>api-ms-win-core-winrt-string-l1-1-0.dll;api-ms-win-core-winrt-l1-1-0.dll;api-ms-win-core-winrt-error-l1-1-0.dll;api-ms-win-core-winrt-error-l1-1-1.dll;Mrmsupport.dll</DelayLoadDLLs>
     </Link>
     <PostBuildEvent>
       <Command>xcopy /Y /D "..\..\.vs\bin\msix.dll" "$(OutDir)"
@@ -124,7 +124,7 @@ del "$(OutDir)msixmgr_LN.exe"
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>false</ConformanceMode>
-      <AdditionalIncludeDirectories>..\msixmgrLib\inc;..\..\.vs\src\msix;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\msixmgrLib\inc;..\..\.vs\src\msix;.\include\rapidjson;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
       <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
@@ -134,8 +134,8 @@ del "$(OutDir)msixmgr_LN.exe"
       <AdditionalLibraryDirectories>..\x64\Debug;..\..\.vs\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <UACExecutionLevel>AsInvoker</UACExecutionLevel>
       <AdditionalOptions>comctl32.lib %(AdditionalOptions)</AdditionalOptions>
-      <AdditionalDependencies>msixmgrlib.lib;msix.lib;msi.lib;comctl32.lib;uxtheme.lib;gdiplus.lib;version.lib;taskschd.lib;windowsapp_downlevel.lib;windowsapp.lib;urlmon.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <DelayLoadDLLs>api-ms-win-core-winrt-string-l1-1-0.dll;api-ms-win-core-winrt-l1-1-0.dll;api-ms-win-core-winrt-error-l1-1-0.dll;api-ms-win-core-winrt-error-l1-1-1.dll</DelayLoadDLLs>
+      <AdditionalDependencies>msixmgrlib.lib;msix.lib;msi.lib;comctl32.lib;uxtheme.lib;gdiplus.lib;version.lib;taskschd.lib;windowsapp_downlevel.lib;windowsapp.lib;urlmon.lib;Mrmsupport.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <DelayLoadDLLs>api-ms-win-core-winrt-string-l1-1-0.dll;api-ms-win-core-winrt-l1-1-0.dll;api-ms-win-core-winrt-error-l1-1-0.dll;api-ms-win-core-winrt-error-l1-1-1.dll;Mrmsupport.dll</DelayLoadDLLs>
     </Link>
     <PostBuildEvent>
       <Command>xcopy /Y /D "..\..\.vs\bin\msix.dll" "$(OutDir)"
@@ -160,7 +160,7 @@ del "$(OutDir)msixmgr_LN.exe"
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>false</ConformanceMode>
-      <AdditionalIncludeDirectories>..\msixmgrLib\inc;..\..\.vs\src\msix;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\msixmgrLib\inc;..\..\.vs\src\msix;.\include\rapidjson;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
       <LanguageStandard>stdcpp17</LanguageStandard>
       <AdditionalOptions>/await</AdditionalOptions>
@@ -173,8 +173,8 @@ del "$(OutDir)msixmgr_LN.exe"
       <AdditionalLibraryDirectories>..\x86\Release;..\..\.vs\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <UACExecutionLevel>AsInvoker</UACExecutionLevel>
       <AdditionalOptions>comctl32.lib %(AdditionalOptions)</AdditionalOptions>
-      <AdditionalDependencies>msixmgrlib.lib;msix.lib;msi.lib;comctl32.lib;uxtheme.lib;gdiplus.lib;version.lib;taskschd.lib;windowsapp_downlevel.lib;windowsapp.lib;urlmon.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <DelayLoadDLLs>api-ms-win-core-winrt-string-l1-1-0.dll;api-ms-win-core-winrt-l1-1-0.dll;api-ms-win-core-winrt-error-l1-1-0.dll;api-ms-win-core-winrt-error-l1-1-1.dll</DelayLoadDLLs>
+      <AdditionalDependencies>msixmgrlib.lib;msix.lib;msi.lib;comctl32.lib;uxtheme.lib;gdiplus.lib;version.lib;taskschd.lib;windowsapp_downlevel.lib;windowsapp.lib;urlmon.lib;Mrmsupport.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <DelayLoadDLLs>api-ms-win-core-winrt-string-l1-1-0.dll;api-ms-win-core-winrt-l1-1-0.dll;api-ms-win-core-winrt-error-l1-1-0.dll;api-ms-win-core-winrt-error-l1-1-1.dll;Mrmsupport.dll</DelayLoadDLLs>
     </Link>
     <PostBuildEvent>
       <Command>xcopy /Y /D "..\..\.vs\bin\msix.dll" "$(OutDir)"
@@ -195,7 +195,7 @@ del "$(OutDir)msixmgr_LN.exe"
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>false</ConformanceMode>
-      <AdditionalIncludeDirectories>..\msixmgrLib\inc;..\..\.vs\src\msix;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\msixmgrLib\inc;..\..\.vs\src\msix;.\include\rapidjson;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
       <LanguageStandard>stdcpp17</LanguageStandard>
       <AdditionalOptions>/await</AdditionalOptions>
@@ -208,8 +208,8 @@ del "$(OutDir)msixmgr_LN.exe"
       <AdditionalLibraryDirectories>..\x64\Release;..\..\.vs\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <UACExecutionLevel>AsInvoker</UACExecutionLevel>
       <AdditionalOptions>comctl32.lib %(AdditionalOptions)</AdditionalOptions>
-      <AdditionalDependencies>msixmgrlib.lib;msix.lib;msi.lib;comctl32.lib;uxtheme.lib;gdiplus.lib;version.lib;taskschd.lib;windowsapp_downlevel.lib;windowsapp.lib;urlmon.lib;virtdisk.lib;Shlwapi.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <DelayLoadDLLs>api-ms-win-core-winrt-string-l1-1-0.dll;api-ms-win-core-winrt-l1-1-0.dll;api-ms-win-core-winrt-error-l1-1-0.dll;api-ms-win-core-winrt-error-l1-1-1.dll</DelayLoadDLLs>
+      <AdditionalDependencies>msixmgrlib.lib;msix.lib;msi.lib;comctl32.lib;uxtheme.lib;gdiplus.lib;version.lib;taskschd.lib;windowsapp_downlevel.lib;windowsapp.lib;urlmon.lib;virtdisk.lib;Shlwapi.lib;Mrmsupport.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <DelayLoadDLLs>api-ms-win-core-winrt-string-l1-1-0.dll;api-ms-win-core-winrt-l1-1-0.dll;api-ms-win-core-winrt-error-l1-1-0.dll;api-ms-win-core-winrt-error-l1-1-1.dll;Mrmsupport.dll</DelayLoadDLLs>
     </Link>
     <PostBuildEvent>
       <Command>xcopy /Y /D "..\..\.vs\bin\msix.dll" "$(OutDir)"

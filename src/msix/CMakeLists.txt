@@ -33,6 +33,7 @@ list(APPEND MSIX_EXPORTS
     "MsixGetLogTextUTF8"
     "CoCreateAppxBundleFactory"
     "CoCreateAppxBundleFactoryWithHeap"
+    "CoCreateXmlFactory"
     ${MSIX_UNPACK_EXPORTS}
     ${MSIX_PACK_EXPORTS}
 )

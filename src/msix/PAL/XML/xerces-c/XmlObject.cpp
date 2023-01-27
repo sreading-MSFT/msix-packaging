@@ -364,6 +364,11 @@ public:
         return static_cast<HRESULT>(Error::OK);
     } CATCH_RETURN();
 
+    HRESULT STDMETHODCALLTYPE GetAttributes(IMsixAttributesEnumerator** attributes) noexcept override try
+    {
+        return E_NOTIMPL;
+    } CATCH_RETURN();
+
 protected:
     IMsixFactory* m_factory = nullptr;
     DOMElement* m_element = nullptr;
@@ -388,7 +393,7 @@ public:
         // For Non validation parser GetResources will return an empty vector for the ContentType, BlockMap and AppxBundleManifest.
         // XercesDom will only parse the schemas if the vector is not empty. If not, it will only see that it is valid xml.
         std::vector<std::pair<std::string, ComPtr<IStream>>> schemas;
-        if (footPrintType == XmlContentType::AppxBlockMapXml)
+        if (footPrintType == XmlContentType::AppxBlockMapXml || footPrintType == XmlContentType::UnknownXml)
         {
             // Block map xml does not need schema validation.
         }

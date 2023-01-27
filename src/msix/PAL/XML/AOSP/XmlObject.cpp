@@ -143,6 +143,11 @@ public:
         return static_cast<HRESULT>(Error::OK);
     } CATCH_RETURN();
 
+    HRESULT STDMETHODCALLTYPE GetAttributes(IMsixAttributesEnumerator** attributes) noexcept override try
+    {
+        return E_NOTIMPL;
+    } CATCH_RETURN();
+
 private:
     IMsixFactory* m_factory = nullptr;
     std::unique_ptr<_jobject, JObjectDeleter> m_javaXmlElementObject;

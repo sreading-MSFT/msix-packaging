@@ -83,6 +83,15 @@ namespace MsixCoreLib
         return (_wcsicmp(left.c_str(), right.c_str()) == 0);
     }
 
+    bool CaseInsensitiveStartsWith(const std::wstring& string, const std::wstring& prefix)
+    {
+        if (string.length() < prefix.length())
+        {
+            return false;
+        }
+        return CaseInsensitiveEquals(string.substr(0, prefix.length()), prefix);
+    }
+
     bool CaseInsensitiveIsSubString(const std::wstring & string, const std::wstring & substring)
     {
         auto it = std::search(
@@ -100,6 +109,18 @@ namespace MsixCoreLib
         if (textValue.Get() != nullptr)
         {
             attributeValue = textValue.Get();
+        }
+
+        return S_OK;
+    }
+
+    HRESULT GetTextValueFromElement(IMsixElement* element, std::wstring& textValueString)
+    {
+        Text<wchar_t> textValue;
+        RETURN_IF_FAILED(element->GetText(&textValue));
+        if (textValue.Get() != nullptr)
+        {
+            textValueString = textValue.Get();
         }
 
         return S_OK;
