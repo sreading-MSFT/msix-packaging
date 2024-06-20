@@ -512,5 +512,26 @@ MSIX_API HRESULT STDMETHODCALLTYPE PackBundle(
 
 } CATCH_RETURN();
 
+
+MSIX_API HRESULT STDMETHODCALLTYPE CoCreateXmlFactory(
+    COTASKMEMALLOC* memalloc,
+    COTASKMEMFREE* memfree,
+    char* utf8XmlFilePath,
+    IMsixElement** xmlFactory) noexcept try
+{
+    MSIX::ComPtr<IAppxFactory> appxFactory;
+    appxFactory = MSIX::ComPtr<IAppxFactory>::Make<MSIX::AppxFactory>(MSIX_VALIDATION_OPTION_SKIPPACKAGEVALIDATION, static_cast<MSIX_APPLICABILITY_OPTIONS>(MSIX_APPLICABILITY_NONE), MSIX_FACTORY_OPTION_NONE, memalloc, memfree).Detach();
+
+    MSIX::ComPtr<IStream> inputStream;
+    ThrowHrIfFailed(CreateStreamOnFile(utf8XmlFilePath, /*forRead*/ true, &inputStream));
+
+    MSIX::ComPtr<IXmlFactory> xmlFactoryLocal;
+    ThrowHrIfFailed(appxFactory->QueryInterface(UuidOfImpl<IXmlFactory>::iid, reinterpret_cast<void**>(&xmlFactoryLocal)));
+    MSIX::ComPtr<IXmlDom> dom = xmlFactoryLocal->CreateDomFromStream(XmlContentType::UnknownXml, inputStream);
+    *xmlFactory = dom->GetDocument().As<IMsixElement>().Detach();
+
+    return static_cast<HRESULT>(MSIX::Error::OK);
+} CATCH_RETURN();
+
 #endif // MSIX_PACK
 

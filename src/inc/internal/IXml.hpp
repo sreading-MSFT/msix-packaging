@@ -19,6 +19,7 @@ enum class XmlContentType : std::uint8_t
     AppxBlockMapXml,
     AppxManifestXml,
     AppxBundleManifestXml,
+    UnknownXml,
 };
 
 // TODO: Strongly consider creating a more flexible/dynamic way of query construction, rather than this hardcoding

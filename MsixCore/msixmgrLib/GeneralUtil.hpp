@@ -55,6 +55,13 @@ namespace MsixCoreLib
     /// @return true if the strings equal, false otherwise
     bool CaseInsensitiveEquals(const std::wstring& left, const std::wstring& right);
 
+    /// Determines if a string starts with another string, insensitive to case
+    ///
+    /// @param string
+    /// @param substring
+    /// @return true if string starts with prefix, false otherwise
+    bool CaseInsensitiveStartsWith(const std::wstring& string, const std::wstring& prefix);
+
     /// Determines if a string contains a substring, insensitive to case
     ///
     /// @param string
@@ -277,6 +284,9 @@ namespace MsixCoreLib
 
 
     HRESULT GetAttributeValueFromElement(IMsixElement* element, std::wstring attributeName, std::wstring& attributeValue);
+
+    HRESULT GetTextValueFromElement(IMsixElement* element, std::wstring& textValueString);
+
     /// The manifest ID is missing the curly braces;
     /// This adds the curly braces to convert it into a proper Guid form.
     std::wstring GuidFromManifestId(std::wstring id);

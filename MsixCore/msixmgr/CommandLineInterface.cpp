@@ -475,6 +475,34 @@ std::map<std::wstring, Options, CaseInsensitiveLess> CommandLineInterface::s_opt
         })
     },
     {
+        L"-CreateKozaniPackage",
+        Options(false, IDS_STRING_HELP_OPTION_UNMOUNTIMAGE,
+        [&](CommandLineInterface* commandLineInterface, const std::string&)
+        {
+            if (commandLineInterface->m_operationType != OperationType::Undefined)
+            {
+                return E_INVALIDARG;
+            }
+            commandLineInterface->m_operationType = OperationType::CreateKozaniPackage;
+            return S_OK;
+        },
+        {
+            {
+                L"-rootDirectory",
+                Option(true, IDS_STRING_HELP_OPTION_UNPACK_ROOTDIRECTORY,
+                    [&](CommandLineInterface* commandLineInterface, const std::string& rootDirectory)
+                {
+                    if (commandLineInterface->m_operationType != OperationType::CreateKozaniPackage)
+                    {
+                        return E_INVALIDARG;
+                    }
+                    commandLineInterface->m_rootDirectory = utf8_to_utf16(rootDirectory);
+                    return S_OK;
+                }),
+            }
+        })
+    },
+    {
         L"-?",
         Options(false, IDS_STRING_HELP_OPTION_HELP,
             [&](CommandLineInterface*, const std::string&)

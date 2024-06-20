@@ -13,7 +13,8 @@ enum OperationType
     Unpack = 5,
     ApplyACLs = 6,
     MountImage = 7,
-    UnmountImage = 8
+    UnmountImage = 8,
+    CreateKozaniPackage = 9
 };
 
 enum WVDFileType

@@ -271,6 +271,37 @@ public:
         return GetElements(utf8_to_wstring(xpath).c_str(), elements);
     } CATCH_RETURN();
 
+    HRESULT STDMETHODCALLTYPE GetAttributes(IMsixAttributesEnumerator** attributes) noexcept override try
+    {
+        ComPtr<IXMLDOMNode> node;
+        ThrowHrIfFailed(m_element->QueryInterface(__uuidof(IXMLDOMNode), reinterpret_cast<void**>(&node)));
+        ComPtr<IXMLDOMNamedNodeMap> nodeMap;
+        ThrowHrIfFailed(node->get_attributes(&nodeMap));
+        std::vector<std::string> attributesVector;
+        if (nodeMap.Get() != nullptr)
+        {
+            long count = 0;
+            ThrowHrIfFailed(nodeMap->get_length(&count));
+            for (long index = 0; index < count; index++)
+            {
+                ComPtr<IXMLDOMNode> attributeNode;
+                ThrowHrIfFailed(nodeMap->get_item(index, &attributeNode));
+
+                std::string nameStr{};
+                Bstr name;
+                ThrowHrIfFailed(attributeNode->get_nodeName(name.AddressOf()));
+                if (name.Get() != nullptr)
+                {
+                    nameStr = wstring_to_utf8(std::wstring(static_cast<WCHAR*>(name.Get())));
+                }
+
+                attributesVector.push_back(std::move(nameStr));
+            }
+        }
+        *attributes = ComPtr<IMsixAttributesEnumerator>::Make<EnumeratorString<IMsixAttributesEnumerator, IMsixAttributesEnumeratorUtf8>>(m_factory, attributesVector).Detach();
+        return static_cast<HRESULT>(Error::OK);
+    } CATCH_RETURN();
+
 protected:
 
     bool GetAttribute(const std::wstring& attribute, VARIANT* variant)
@@ -587,7 +618,7 @@ public:
                 // No need to validate block map xml schema as it is CPU intensive, especially for large packages with large block map xml, which is  
                 // about 0.1% of the uncompressed payload size. We have semantic validation at consumption to catch mal-formatted xml. 
                 // We consume what we know and ignore what we don't know for future proof.
-                (XmlContentType::AppxBlockMapXml == footPrintType) ? emptyManager : s_xmlNamespaces[static_cast<std::uint8_t>(footPrintType)],
+                (XmlContentType::AppxBlockMapXml == footPrintType || XmlContentType::UnknownXml == footPrintType) ? emptyManager : s_xmlNamespaces[static_cast<std::uint8_t>(footPrintType)],
             #else
                 emptyManager,
             #endif

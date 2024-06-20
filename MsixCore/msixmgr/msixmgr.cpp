@@ -22,6 +22,7 @@
 #include "ApplyACLsProvider.hpp"
 #include "VHDProvider.hpp"
 #include "CIMProvider.hpp"
+#include "..\msixmgrLib\CreateKozaniPackageProvider.hpp"
 #include "MsixErrors.hpp"
 #include <filesystem>
 #include "msixmgrTraceLogging.hpp"
@@ -1181,6 +1182,41 @@ int main(int argc, char * argv[])
 
                 return ERROR_NOT_SUPPORTED;
             }
+            return S_OK;
+        }
+        case OperationType::CreateKozaniPackage:
+        {
+            std::wstring unpackedRootDirectory = cli.GetRootDirectory();
+            std::wstring writeDestination = cli.GetUnpackDestination();
+
+            if (writeDestination.empty())
+            {
+                HRESULT hrCreateDir = CreateTempDirectory(writeDestination);
+                if (FAILED(hrCreateDir))
+                {
+                    std::wcout << std::endl;
+                    std::wcout << "Creating temp directory failed with HRESULT 0x" << std::hex << hrCreateDir << std::endl;
+                    std::wcout << std::endl;
+                    return hrCreateDir;
+                }
+            }
+            std::wcout << std::endl;
+            std::wcout << "Copying required package files to " << writeDestination << std::endl;
+            std::wcout << std::endl;
+
+            HRESULT hrKozani = MsixCoreLib::CreateKozaniPackage(unpackedRootDirectory, writeDestination);
+            if (FAILED(hrKozani))
+            {
+                std::wcout << std::endl;
+                std::wcout << "Processing package directory failed with HRESULT 0x" << std::hex << hrKozani << std::endl;
+                std::wcout << std::endl;
+                return hrKozani;
+            }
+
+            std::wcout << std::endl;
+            std::wcout << "Successfully copied the required files to " << writeDestination << std::endl;
+            std::wcout << std::endl;
+
             return S_OK;
         }
         default:
